@@ -154,7 +154,9 @@ figcaption {
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
 
+/* Disabled: show images in full colour.
 .grayscale { filter: grayscale(1) contrast(1.08); }
+*/
 
 /* - rules - */
 .hr { height: 2px; border: 0; margin: var(--space-4) 0; background: var(--color-divider); }
