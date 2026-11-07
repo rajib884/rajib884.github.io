@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">device_mcp multi-device console routing</title>
+  <desc id="desc">A terminal server at 10.0.0.34 exposes three BDCOM switches on ports 10003, 10004 and 10005. device_mcp keys each connection by host:port, so every switch keeps an independent mode, console ring and audit file.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#201e1d"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#ec3013"/>
+    </marker>
+    <style>
+      .bg { fill: #f3f2f2; }
+      .ink { fill: #201e1d; }
+      .muted { fill: #605d5d; }
+      .accent { fill: #ec3013; }
+      .box { fill: none; stroke: #201e1d; stroke-width: 2; }
+      .box-accent { fill: #fff2ef; stroke: #ec3013; stroke-width: 2; }
+      .box-soft { fill: #eae9e9; stroke: #9b9797; stroke-width: 1.5; stroke-dasharray: 5 4; }
+      .box-dark { fill: #201e1d; stroke: #201e1d; }
+      .line { stroke: #201e1d; stroke-width: 2; fill: none; }
+      .line-soft { stroke: #9b9797; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+      .line-accent { stroke: #ec3013; stroke-width: 2.5; fill: none; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #201e1d; letter-spacing: -1px; }
+      .kicker { font-family: Arial, Helvetica, sans-serif; font-size: 12px; fill: #ae1800; letter-spacing: 2px; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #201e1d; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #605d5d; }
+      .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #201e1d; }
+      .white { fill: #f3f2f2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+  <text class="kicker" x="60" y="58">CASE 05 &#183; DEVICE_MCP / MULTI-DEVICE</text>
+  <text class="title" x="60" y="98">One IP, many consoles</text>
+  <text class="small" x="60" y="126">A terminal server exposes several devices on one address; host:port keeps each session independent.</text>
+
+  <rect class="box-accent" x="60" y="170" width="300" height="420"/>
+  <text class="kicker" x="84" y="200">CONNECTION MANAGER</text>
+  <text class="label" x="84" y="232" font-size="22" font-weight="700">device_mcp</text>
+  <text class="small" x="84" y="256">one session per target</text>
+
+  <text class="small" x="84" y="294">target</text>
+  <text class="small" x="286" y="294">mode</text>
+  <line class="line-soft" x1="84" y1="306" x2="336" y2="306"/>
+
+  <text class="mono" x="84" y="332" font-size="12">10.0.0.34:10003</text>
+  <text class="small" x="286" y="332">enable</text>
+
+  <text class="mono" x="84" y="372" font-size="12">10.0.0.34:10004</text>
+  <text class="small" x="286" y="372">config</text>
+
+  <text class="mono" x="84" y="412" font-size="12">10.0.0.34:10005</text>
+  <text class="small" x="286" y="412">enable</text>
+
+  <text class="small" x="84" y="470">same host, different port</text>
+  <text class="small" x="84" y="494">own prompt, ring and audit file</text>
+  <text class="small" x="84" y="518">port optional if one session</text>
+
+  <line class="line" x1="360" y1="320" x2="412" y2="320" marker-end="url(#arrow)"/>
+  <text class="small" x="366" y="306">SSH</text>
+  <text class="small" x="366" y="338">Telnet</text>
+
+  <rect class="box" x="420" y="170" width="240" height="420"/>
+  <text class="kicker" x="444" y="200">TERMINAL SERVER</text>
+  <text class="label" x="444" y="232" font-size="20" font-weight="700">10.0.0.34</text>
+  <text class="small" x="444" y="256">console lines</text>
+
+  <rect class="box" x="444" y="282" width="192" height="46"/>
+  <text class="mono" x="462" y="310">:10003</text>
+  <text class="small" x="536" y="310">line 1</text>
+
+  <rect class="box" x="444" y="392" width="192" height="46"/>
+  <text class="mono" x="462" y="420">:10004</text>
+  <text class="small" x="536" y="420">line 2</text>
+
+  <rect class="box" x="444" y="502" width="192" height="46"/>
+  <text class="mono" x="462" y="530">:10005</text>
+  <text class="small" x="536" y="530">line 3</text>
+
+  <line class="line" x1="660" y1="305" x2="712" y2="305" marker-end="url(#arrow)"/>
+  <line class="line" x1="660" y1="415" x2="712" y2="415" marker-end="url(#arrow)"/>
+  <line class="line" x1="660" y1="525" x2="712" y2="525" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="720" y="260" width="420" height="90"/>
+  <text class="kicker" x="744" y="288">PORT 10003 &#183; BDCOM</text>
+  <text class="label" x="744" y="320" font-size="17">Lab switch A</text>
+  <text class="small" x="744" y="344">enable &#183; show running-config &#183; console tap</text>
+
+  <rect class="box" x="720" y="370" width="420" height="90"/>
+  <text class="kicker" x="744" y="398">PORT 10004 &#183; BDCOM</text>
+  <text class="label" x="744" y="430" font-size="17">Lab switch B</text>
+  <text class="small" x="744" y="454">config: vlan 30 &#183; access port + pvid</text>
+
+  <rect class="box" x="720" y="480" width="420" height="90"/>
+  <text class="kicker" x="744" y="508">PORT 10005 &#183; BDCOM</text>
+  <text class="label" x="744" y="540" font-size="17">Lab switch C</text>
+  <text class="small" x="744" y="564">enable &#183; reboot watch via read_console_stream</text>
+
+  <rect class="box-soft" x="60" y="620" width="1080" height="60"/>
+  <text class="kicker" x="84" y="646">WHY IT MATTERS</text>
+  <text class="small" x="84" y="668">The key is target = host:port. Each target keeps its own mode, console ring and audit file, so a batch test cannot cross wires between consoles.</text>
+
+  <text class="small" x="60" y="704">Terminal-server fan-out is the deployment this was built for; the same addressing works for any SSH or Telnet target.</text>
+</svg>

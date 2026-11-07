@@ -234,9 +234,9 @@
           </li>
           <li>
             Built the <strong>AI automation toolchain</strong> the team uses
-            daily: MCP servers putting BDCOM and Cisco switches under
-            <strong>AI agent</strong> control over SSH/Telnet, and editing a GBK
-            codebase byte-exactly.
+            daily: <a href="#case-devicemcp">MCP servers</a> putting BDCOM and
+            Cisco switches under <strong>AI agent</strong> control over
+            SSH/Telnet, and editing a GBK codebase byte-exactly.
           </li>
           <li>
             Raised GNS3 lab capacity <strong>ten-fold</strong> with a
@@ -277,11 +277,11 @@
     <section id="projects" class="pf-wrap pf-section">
       <div class="pf-section-head" data-reveal>
         <div class="pf-kicker">02 &mdash; Selected work</div>
-        <h2>Four projects, opened up.</h2>
+        <h2>Five projects, opened up.</h2>
       </div>
 
       <p class="pf-case-intro" data-reveal>
-        The CV lists the projects. These four have enough engineering behind
+        The CV lists the projects. These five have enough engineering behind
         them to show the work: the problem, the decisions, and the artifacts
         that make the claims checkable.
       </p>
@@ -702,6 +702,156 @@
         </div>
       </article>
 
+      <article class="pf-case" id="case-devicemcp" data-reveal>
+        <header class="pf-case-head">
+          <div class="pf-case-index">05</div>
+          <div>
+            <div class="pf-case-meta">2026 &middot; Python &middot; FastMCP / MCP &middot; SSH &amp; Telnet</div>
+            <h3>device_mcp</h3>
+          </div>
+          <div class="pf-case-tags">
+            <span class="tag tag-accent">AI integration</span>
+            <span class="tag tag-outline">Automation</span>
+          </div>
+        </header>
+
+        <div class="pf-case-body">
+          <div class="pf-case-copy">
+            <p class="pf-case-lede">
+              A FastMCP server that turns a network device&rsquo;s CLI into a
+              tool surface an AI assistant can use: connect over SSH or Telnet,
+              run one command or an atomic config block, answer confirmation
+              prompts, and read the console back.
+            </p>
+            <p>
+              Sending a command is the easy part. The hard part is knowing which
+              prompt the device is sitting at, whether a rejected line stopped a
+              configuration block, and whether the session died or the transport
+              did. The server keeps a persistent session per
+              <code>host:port</code>, handles mode changes and paging, and
+              returns the raw output with a parsed status footer on every call.
+              A model can then retry, correct or stop without guessing.
+            </p>
+            <p>
+              It ships with a netmiko transport for Cisco IOS and 400+ platforms,
+              plus a small custom BDCOM driver. The stock netmiko setup fails on
+              BDCOM: <code>terminal width</code> is unsupported, and
+              <code>terminal length 0</code> only works in enable mode, so paging
+              stays on and the next large <code>show</code> desyncs at
+              <code>--More--</code>. The driver enters enable first, disables
+              paging there, uses <code>config</code> rather than
+              <code>configure terminal</code>, and exits config with Ctrl-Z.
+            </p>
+            <p>
+              The current surface is seven session and CLI tools. File-transfer
+              and firmware-recovery wrappers are implemented and unit-tested but
+              left commented out in the server, so they are not exposed as tools.
+              The session core is covered by an emulator-backed integration suite
+              and an offline smoke test.
+            </p>
+            <ul class="pf-case-points">
+              <li>Seven MCP tools: <code>connect_device</code>, <code>execute_command</code>, <code>disconnect_device</code>, <code>list_connections</code>, <code>get_console_history</code>, <code>read_console_stream</code> and <code>get_help</code></li>
+              <li>Sessions keyed <code>host:port</code>; one IP can fan out to several console lines, each with its own mode, buffer and audit file</li>
+              <li>Modes <code>auto</code>, <code>user</code>, <code>enable</code>, <code>config</code> and <code>raw</code>; <code>auto</code> never downgrades, <code>config</code> applies a list atomically, <code>raw</code> reaches the bootloader <code>monitor#</code></li>
+              <li>Custom BDCOM driver: <code>config</code>, <code>Switch_config#</code> prompts, Ctrl-Z exit, paging disabled only in enable; avoids the <code>--More--</code> desync</li>
+              <li>Result footer separates device errors from transport failures, adds Cisco&rarr;BDCOM hints and reports the parsed mode as <code>now:</code></li>
+              <li>Always-on console transcript per connection; idle polling captures reboot progress and unsolicited output when no tool call is running</li>
+              <li>Emulator-backed integration tests cover connect, auth, paging, config, help, confirmations and session termination; an offline smoke test checks the tool registry and <code>host:port</code> resolution</li>
+            </ul>
+            <p class="pf-case-result">Seven tools live &middot; 400+ netmiko platforms &middot; emulator-tested session core</p>
+            <div class="pf-card-links">
+              <a href="https://github.com/rajib884/bdcom_mcp" target="_blank" rel="noreferrer noopener">Repository</a>
+              <a href="https://github.com/rajib884/bdcom_mcp/blob/main/README.md" target="_blank" rel="noreferrer noopener">README &amp; tool reference</a>
+            </div>
+          </div>
+
+          <div class="pf-case-side">
+            <figure class="pf-case-figure">
+              <img src="assets/img/case-devicemcp-system.svg"
+                   alt="Architecture diagram: an AI assistant calls an MCP client over stdio; the device_mcp FastMCP server contains a seven-tool registry, a host:port session manager, a mode-aware command engine and an audit log; netmiko and a custom BDCOM driver reach Cisco IOS, BDCOM and other network devices over SSH or Telnet."
+                   loading="lazy" width="1200" height="720">
+              <figcaption>
+                End-to-end path: the assistant calls tools over MCP; the server
+                owns the persistent SSH/Telnet session, mode handling and audit
+                transcript. Conceptual diagram, not a deployment diagram.
+                <a class="pf-case-open" href="assets/img/case-devicemcp-system.svg" target="_blank" rel="noreferrer noopener">Open full-size diagram &nearr;</a>
+              </figcaption>
+            </figure>
+
+            <div class="pf-case-aside">
+              <div class="pf-case-aside-block">
+                <div class="pf-case-aside-kicker">Scope</div>
+                <p>
+                  The public surface is the seven session and CLI tools.
+                  <code>transfer_file</code>, <code>upgrade_firmware</code>,
+                  <code>enter_monitor_mode</code> and
+                  <code>recover_firmware</code> are implemented and tested but
+                  commented out in <code>server.py</code>; they are not
+                  advertised to the model.
+                </p>
+              </div>
+              <div class="pf-case-aside-block">
+                <div class="pf-case-aside-kicker">Safety</div>
+                <p>
+                  Credentials are passed per connection and not stored. The
+                  always-on transcript captures raw I/O and can contain plaintext
+                  secrets, so <code>logs/</code> is git-ignored and treated as
+                  sensitive. SSH-key auth and a credential vault are not
+                  implemented.
+                </p>
+              </div>
+            </div>
+
+            <div class="pf-case-stack" aria-label="Project technologies">
+              <span>Python</span><span>FastMCP</span><span>MCP</span>
+              <span>netmiko</span><span>SSH</span><span>Telnet</span>
+              <span>Cisco IOS</span><span>BDCOM</span><span>pytest</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pf-case-gallery pf-case-gallery-two">
+          <figure class="pf-case-figure">
+            <img src="assets/img/case-devicemcp-session.svg"
+                 alt="Session diagram: connect_device creates a persistent host:port session; execute_command branches into auto, user/enable, config and raw modes; every result returns raw output plus a parsed prompt and mode label."
+                 loading="lazy" width="1200" height="720">
+            <figcaption>
+              Session and mode model: <code>auto</code> keeps the current
+              privilege, <code>config</code> applies a list atomically, and
+              <code>raw</code> drives unfamiliar prompts. Mode labels come from
+              the prompt suffix, so the hostname does not matter.
+              <a class="pf-case-open" href="assets/img/case-devicemcp-session.svg" target="_blank" rel="noreferrer noopener">Open full-size diagram &nearr;</a>
+            </figcaption>
+          </figure>
+
+          <figure class="pf-case-figure">
+            <img src="assets/img/case-devicemcp-console.svg"
+                 alt="Multi-device diagram: a terminal server at 10.0.0.34 exposes three BDCOM switches on ports 10003, 10004 and 10005; device_mcp keys each as a separate host:port session with its own mode, console ring and audit file."
+                 loading="lazy" width="1200" height="720">
+            <figcaption>
+              One terminal server, three consoles: connections are keyed by
+              <code>host:port</code>, so each device keeps an independent mode,
+              ring buffer and audit file. <code>port</code> can be omitted when
+              the host has a single connection.
+              <a class="pf-case-open" href="assets/img/case-devicemcp-console.svg" target="_blank" rel="noreferrer noopener">Open full-size diagram &nearr;</a>
+            </figcaption>
+          </figure>
+
+          <figure class="pf-case-figure pf-case-figure-span">
+            <img src="assets/img/case-devicemcp-footer.svg"
+                 alt="Result footer diagram: five examples showing success, a device error with a BDCOM hint, a terminated session, an atomic config result and a transport failure, each ending with the parsed prompt and mode."
+                 loading="lazy" width="1200" height="720">
+            <figcaption>
+              The result contract: raw device output followed by one parsed
+              footer. Device errors, transport failures and dropped sessions are
+              distinct states, and <code>now:</code> names the CLI context the
+              next call starts from.
+              <a class="pf-case-open" href="assets/img/case-devicemcp-footer.svg" target="_blank" rel="noreferrer noopener">Open full-size diagram &nearr;</a>
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
       <div class="pf-other-head" data-reveal>
         <h3>Robotics</h3>
         <p>Two rovers built for RUET&rsquo;s Robotronics.</p>
@@ -781,26 +931,7 @@
           </div>
         </article>
 
-        <article class="card pf-card" data-reveal>
-          <div class="pf-card-top">
-            <span class="card-kicker">2026 &mdash; Python</span>
-            <span class="tag tag-outline">Automation</span>
-          </div>
-          <h3>bdcom_mcp</h3>
-          <div class="pf-card-sub">Network device automation</div>
-          <p class="card-body">
-            Drives routers, switches and firewalls over SSH/Telnet via netmiko
-            &mdash; Cisco IOS, BDCOM and any netmiko-supported platform. Used
-            for multi-device routing tests, batch configuration and debug
-            capture across physical and simulated devices &mdash; exposed as an
-            MCP server, so an AI agent can run all of it.
-          </p>
-          <div class="pf-card-links">
-            <a href="https://github.com/rajib884/bdcom_mcp" target="_blank" rel="noreferrer noopener">Repository</a>
-          </div>
-        </article>
-
-        <a class="pf-cta pf-cta-wide" href="https://github.com/rajib884" target="_blank" rel="noreferrer noopener" data-reveal>
+        <a class="pf-cta" href="https://github.com/rajib884" target="_blank" rel="noreferrer noopener" data-reveal>
           <span class="pf-cta-label">Source</span>
           <span class="pf-cta-line">More code on<br>github.com/rajib884 &rarr;</span>
         </a>
@@ -878,8 +1009,8 @@
       <div class="pf-split pf-skill" data-reveal>
         <div class="pf-skill-label">Tools</div>
         <p>
-          Git, SVN, Linux, GNS3, Wireshark, Npcap/libpcap, netmiko, Atmel
-          Studio, Simulink, Microsoft Visio, LaTeX.
+          Git, SVN, Linux, GNS3, Wireshark, Npcap/libpcap, netmiko,
+          FastMCP/MCP, Atmel Studio, Simulink, Microsoft Visio, LaTeX.
         </p>
       </div>
 

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">device_mcp result footer contract</title>
+  <desc id="desc">Every command returns raw device output followed by a parsed footer. Examples show success, a device error with a BDCOM hint, a terminated session, an atomic config result, and a transport failure, each with the prompt and mode the next call starts from.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f3f2f2; }
+      .ink { fill: #201e1d; }
+      .muted { fill: #605d5d; }
+      .accent { fill: #ec3013; }
+      .box { fill: none; stroke: #201e1d; stroke-width: 2; }
+      .box-soft { fill: #eae9e9; stroke: #9b9797; stroke-width: 1.5; stroke-dasharray: 5 4; }
+      .box-dark { fill: #201e1d; stroke: #201e1d; }
+      .line-soft { stroke: #9b9797; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #201e1d; letter-spacing: -1px; }
+      .kicker { font-family: Arial, Helvetica, sans-serif; font-size: 12px; fill: #ae1800; letter-spacing: 2px; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #201e1d; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #605d5d; }
+      .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #201e1d; }
+      .code { font-family: Consolas, 'Courier New', monospace; font-size: 12px; fill: #f3f2f2; }
+      .code-muted { font-family: Consolas, 'Courier New', monospace; font-size: 12px; fill: #bab6b6; }
+      .code-accent { font-family: Consolas, 'Courier New', monospace; font-size: 12px; fill: #ff9783; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+  <text class="kicker" x="60" y="58">CASE 05 &#183; DEVICE_MCP / RESULT CONTRACT</text>
+  <text class="title" x="60" y="98">A footer the model can act on</text>
+  <text class="small" x="60" y="126">Raw device output, then one parsed status line: device error, transport failure, dropped session, or success.</text>
+
+  <rect class="box-dark" x="60" y="160" width="750" height="64"/>
+  <text class="code-accent" x="80" y="186">[device-mcp]</text>
+  <text class="code" x="172" y="186">ok | now: Switch# (enable)</text>
+  <text class="kicker" x="840" y="184">SUCCESS</text>
+  <text class="small" x="840" y="206">Command accepted; the session is in enable.</text>
+
+  <rect class="box-dark" x="60" y="236" width="750" height="84"/>
+  <text class="code-accent" x="80" y="262">[device-mcp]</text>
+  <text class="code" x="172" y="262">device error: Unknown command near 'status'</text>
+  <text class="code-muted" x="80" y="282">  hint: BDCOM has no 'show interface status'; use 'show ip interface brief'.</text>
+  <text class="code-muted" x="80" y="302">  now: Switch# (enable)</text>
+  <text class="kicker" x="840" y="260">DEVICE ERROR</text>
+  <text class="small" x="840" y="282">The device rejected the command.</text>
+  <text class="small" x="840" y="300">A Cisco-ism gets the BDCOM equivalent.</text>
+
+  <rect class="box-dark" x="60" y="332" width="750" height="84"/>
+  <text class="code-accent" x="80" y="358">[device-mcp]</text>
+  <text class="code" x="172" y="358">SESSION_TERMINATED: device returned to login prompt</text>
+  <text class="code-muted" x="80" y="378">  &#8212; reconnect required | now: awaiting_login</text>
+  <text class="kicker" x="840" y="356">DROPPED SESSION</text>
+  <text class="small" x="840" y="378">The console fell back to login. Reconnect</text>
+  <text class="small" x="840" y="396">instead of retrying into a dead prompt.</text>
+
+  <rect class="box-dark" x="60" y="428" width="750" height="84"/>
+  <text class="code-accent" x="80" y="454">[device-mcp]</text>
+  <text class="code" x="172" y="454">applied 3 command(s)</text>
+  <text class="code-muted" x="80" y="474">  now: Switch_config_g0/1# (config: interface g0/1)</text>
+  <text class="kicker" x="840" y="452">ATOMIC CONFIG</text>
+  <text class="small" x="840" y="474">The list applied as one block; the caller</text>
+  <text class="small" x="840" y="492">knows the exact sub-mode.</text>
+
+  <rect class="box-dark" x="60" y="524" width="750" height="64"/>
+  <text class="code-accent" x="80" y="550">[device-mcp]</text>
+  <text class="code" x="172" y="550">FAILED: &lt;transport exception&gt; | now: &lt;prompt|state&gt;</text>
+  <text class="kicker" x="840" y="548">TRANSPORT FAILURE</text>
+  <text class="small" x="840" y="570">Different from a device error; the exception</text>
+  <text class="small" x="840" y="588">is not a CLI rejection.</text>
+
+  <rect class="box-soft" x="60" y="616" width="1080" height="64"/>
+  <text class="kicker" x="84" y="642">WHY IT MATTERS</text>
+  <text class="small" x="84" y="664">No ReadTimeout ambiguity. No silent partial config. No prompt guessing.</text>
+  <text class="small" x="760" y="664">Generated by the server, not the model.</text>
+
+  <text class="small" x="60" y="704">Examples are trimmed from the server's result footer; raw output is omitted here. A failed connection still leaves a partial audit transcript.</text>
+</svg>

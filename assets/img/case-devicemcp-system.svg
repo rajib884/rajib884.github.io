@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">device_mcp system architecture</title>
+  <desc id="desc">An AI assistant calls an MCP client over stdio; the device_mcp FastMCP server holds a seven-tool registry, a host:port session manager, a mode-aware command engine and an audit log. netmiko and a custom BDCOM driver reach Cisco IOS, BDCOM and other network devices over SSH or Telnet.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#201e1d"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#ec3013"/>
+    </marker>
+    <style>
+      .bg { fill: #f3f2f2; }
+      .ink { fill: #201e1d; }
+      .muted { fill: #605d5d; }
+      .accent { fill: #ec3013; }
+      .box { fill: none; stroke: #201e1d; stroke-width: 2; }
+      .box-accent { fill: #fff2ef; stroke: #ec3013; stroke-width: 2; }
+      .box-soft { fill: #eae9e9; stroke: #9b9797; stroke-width: 1.5; stroke-dasharray: 5 4; }
+      .box-dark { fill: #201e1d; stroke: #201e1d; }
+      .line { stroke: #201e1d; stroke-width: 2; fill: none; }
+      .line-soft { stroke: #9b9797; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+      .line-accent { stroke: #ec3013; stroke-width: 2.5; fill: none; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #201e1d; letter-spacing: -1px; }
+      .kicker { font-family: Arial, Helvetica, sans-serif; font-size: 12px; fill: #ae1800; letter-spacing: 2px; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #201e1d; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #605d5d; }
+      .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #201e1d; }
+      .white { fill: #f3f2f2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+  <text class="kicker" x="60" y="58">CASE 05 &#183; DEVICE_MCP / SYSTEM</text>
+  <text class="title" x="60" y="98">An AI tool surface for the CLI</text>
+  <text class="small" x="60" y="126">2026 &#183; Python &#183; FastMCP &#183; netmiko &#183; SSH / Telnet &#183; persistent host:port sessions</text>
+
+  <rect class="box" x="60" y="180" width="210" height="120"/>
+  <text class="kicker" x="80" y="208">INTENT</text>
+  <text class="label" x="80" y="242">AI assistant</text>
+  <text class="small" x="80" y="266">Claude &#183; Amazon Q</text>
+  <text class="small" x="80" y="286">or any MCP client</text>
+
+  <line class="line" x1="165" y1="300" x2="165" y2="332" marker-end="url(#arrow)"/>
+  <text class="small" x="175" y="320">intent</text>
+
+  <rect class="box" x="60" y="340" width="210" height="110"/>
+  <text class="kicker" x="80" y="368">PROTOCOL</text>
+  <text class="label" x="80" y="400">MCP client</text>
+  <text class="small" x="80" y="424">stdio &#183; JSON-RPC</text>
+  <text class="small" x="80" y="444">typed tool calls</text>
+
+  <line class="line-accent" x1="270" y1="395" x2="322" y2="395" marker-end="url(#arrow-accent)"/>
+  <text class="small" x="274" y="383">tools</text>
+
+  <rect class="box-accent" x="330" y="160" width="480" height="430"/>
+  <text class="kicker" x="354" y="190">FASTMCP SERVER</text>
+  <text class="label" x="354" y="224" font-size="24" font-weight="700">device_mcp</text>
+  <text class="small" x="354" y="248">Python &gt;=3.10 &#183; FastMCP lifecycle</text>
+
+  <rect class="box" x="354" y="270" width="432" height="80"/>
+  <text class="label" x="372" y="296" font-size="16">7 session + CLI tools</text>
+  <text class="small" x="372" y="318">connect &#183; execute &#183; disconnect &#183; list</text>
+  <text class="small" x="372" y="336">history &#183; stream &#183; inline help</text>
+
+  <rect class="box" x="354" y="370" width="200" height="90"/>
+  <text class="label" x="372" y="396" font-size="16">sessions</text>
+  <text class="small" x="372" y="418">keyed host:port</text>
+  <text class="small" x="372" y="438">idle console tap</text>
+
+  <rect class="box" x="586" y="370" width="200" height="90"/>
+  <text class="label" x="604" y="396" font-size="16">command engine</text>
+  <text class="small" x="604" y="418">auto / user / enable</text>
+  <text class="small" x="604" y="438">config / raw &#183; atomic</text>
+
+  <rect class="box" x="354" y="480" width="432" height="80"/>
+  <text class="label" x="372" y="506" font-size="16">audit log</text>
+  <text class="mono" x="372" y="528" font-size="12">./logs/&lt;host&gt;_&lt;port&gt;_&lt;UTC&gt;.log</text>
+  <text class="small" x="372" y="546">full session, login to disconnect</text>
+
+  <line class="line" x1="810" y1="220" x2="872" y2="220" marker-end="url(#arrow)"/>
+  <text class="small" x="818" y="208">netmiko</text>
+  <line class="line-accent" x1="810" y1="360" x2="872" y2="360" marker-end="url(#arrow-accent)"/>
+  <text class="small" x="818" y="348">custom</text>
+  <line class="line" x1="810" y1="500" x2="872" y2="500" marker-end="url(#arrow)"/>
+  <text class="small" x="818" y="488">netmiko</text>
+
+  <rect class="box" x="880" y="170" width="260" height="100"/>
+  <text class="kicker" x="900" y="198">NETMIKO &#183; SSH / TELNET</text>
+  <text class="label" x="900" y="230">Cisco IOS</text>
+  <text class="small" x="900" y="254">cisco_ios &#183; cisco_ios_telnet</text>
+
+  <rect class="box" x="880" y="310" width="260" height="100"/>
+  <text class="kicker" x="900" y="338">CUSTOM DRIVER &#183; SSH/TELNET</text>
+  <text class="label" x="900" y="370">BDCOM switch</text>
+  <text class="small" x="900" y="394">config &#183; Ctrl-Z &#183; paging in enable</text>
+
+  <rect class="box" x="880" y="450" width="260" height="100"/>
+  <text class="kicker" x="900" y="478">NETMIKO &#183; SSH / TELNET</text>
+  <text class="label" x="900" y="510">400+ platforms</text>
+  <text class="small" x="900" y="534">routers &#183; switches &#183; firewalls</text>
+
+  <rect class="box-soft" x="60" y="610" width="1120" height="64"/>
+  <text class="kicker" x="84" y="636">CONSOLE SERVER</text>
+  <text class="label" x="84" y="662" font-size="16">One IP, many consoles</text>
+  <text class="small" x="300" y="662">10.0.0.34:10003 / 10004 / 10005 &#8594; independent host:port sessions</text>
+
+  <text class="small" x="60" y="704">Transport is netmiko for cisco_ios and 400+ platforms; BDCOM uses the included driver. Conceptual architecture, not a deployment diagram.</text>
+</svg>

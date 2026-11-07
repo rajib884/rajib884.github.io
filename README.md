@@ -82,18 +82,21 @@ beside it. No Google Fonts request is made.
 
 ## Case studies
 
-The first four projects are full case studies:
+The first five projects are full case studies:
 
 1. **Automatic railway gate control** - `#case-railway`
 2. **IoT weather station** - `#case-weather`
 3. **TFTP_VLAN** - `#case-tftp`
 4. **Voltage protector** - `#case-voltage`
+5. **device_mcp** - `#case-devicemcp`
 
-Each has an original SVG system diagram; the weather case adds a data path,
-the TFTP case adds a topology and an 802.1Q frame layout, and the voltage case
-adds two Proteus test captures. The railway and weather cases also use photos
-of the real hardware. The two Mud Rover builds sit in a two-up "Robotics" row;
-the remaining projects sit in the two-up "Other work" grid.
+Each has an original SVG system diagram; the device_mcp case adds a session and
+mode model, a multi-device console fan-out and a result-footer contract. The
+weather case adds a data path, the TFTP case adds a topology and an 802.1Q frame
+layout, and the voltage case adds two Proteus test captures. The railway and
+weather cases also use photos of the real hardware. The two Mud Rover builds sit
+in a two-up "Robotics" row; the remaining projects sit in the two-up "Other work"
+grid.
 
 The diagrams are explanatory drawings, not photographs. Each caption links to
 the full-size image, since diagram text is small in the column. To add a real
@@ -101,7 +104,8 @@ project photo later, put it in `assets/img/` and either replace a case-study
 figure or add another `<figure class="pf-case-figure">` inside that case's
 `.pf-case-gallery`. The gallery auto-fits; add `pf-case-gallery-two` to force a
 two-column layout on wide screens (the four-item railway and weather galleries
-use this to make a 2x2 grid).
+use this to make a 2x2 grid). Add `pf-case-figure-span` to a figure to make it
+span both columns, as the device_mcp result-footer figure does.
 
 ## Images
 
@@ -121,6 +125,10 @@ use this to make a 2x2 grid).
 - `assets/img/case-voltage-system.svg` - original protection-chain diagram.
 - `assets/img/case-voltage-ovp.png` - Proteus over-voltage trip capture.
 - `assets/img/case-voltage-ocp.png` - Proteus short-circuit trip capture.
+- `assets/img/case-devicemcp-system.svg` - original end-to-end architecture diagram.
+- `assets/img/case-devicemcp-session.svg` - original session and mode model.
+- `assets/img/case-devicemcp-console.svg` - original multi-device console fan-out.
+- `assets/img/case-devicemcp-footer.svg` - original result-footer contract diagram.
 - `assets/img/weather-main-board.jpg` — assembled weather-station main board.
 - `assets/img/weather-secondary-board.jpg` — assembled sensor board.
 - `assets/img/weather-pcb.jpg` — fabricated main board, EAGLE layout.

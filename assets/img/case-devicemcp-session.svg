@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">device_mcp session and mode model</title>
+  <desc id="desc">A persistent session keyed by host:port receives connect_device and execute_command calls. The auto mode keeps the current privilege, user and enable force a level, config applies a command list atomically with sub-mode tracking, and raw drives unfamiliar prompts directly. Every result ends with a parsed prompt and mode label.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#201e1d"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#ec3013"/>
+    </marker>
+    <style>
+      .bg { fill: #f3f2f2; }
+      .ink { fill: #201e1d; }
+      .muted { fill: #605d5d; }
+      .accent { fill: #ec3013; }
+      .box { fill: none; stroke: #201e1d; stroke-width: 2; }
+      .box-accent { fill: #fff2ef; stroke: #ec3013; stroke-width: 2; }
+      .box-soft { fill: #eae9e9; stroke: #9b9797; stroke-width: 1.5; stroke-dasharray: 5 4; }
+      .box-dark { fill: #201e1d; stroke: #201e1d; }
+      .line { stroke: #201e1d; stroke-width: 2; fill: none; }
+      .line-soft { stroke: #9b9797; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+      .line-accent { stroke: #ec3013; stroke-width: 2.5; fill: none; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #201e1d; letter-spacing: -1px; }
+      .kicker { font-family: Arial, Helvetica, sans-serif; font-size: 12px; fill: #ae1800; letter-spacing: 2px; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #201e1d; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #605d5d; }
+      .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #201e1d; }
+      .white { fill: #f3f2f2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+  <text class="kicker" x="60" y="58">CASE 05 &#183; DEVICE_MCP / SESSION</text>
+  <text class="title" x="60" y="98">The model always knows where the CLI is</text>
+  <text class="small" x="60" y="126">Persistent session &#183; mode-aware execution &#183; atomic config &#183; parsed prompt on every result</text>
+
+  <rect class="box" x="60" y="170" width="220" height="110"/>
+  <text class="kicker" x="80" y="196">TOOL</text>
+  <text class="label" x="80" y="226" font-size="16">connect_device</text>
+  <text class="small" x="80" y="250">host &#183; port &#183; device_type</text>
+  <text class="small" x="80" y="268">SSH or Telnet</text>
+
+  <line class="line" x1="280" y1="220" x2="312" y2="220" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="320" y="170" width="260" height="110"/>
+  <text class="kicker" x="340" y="196">STATE</text>
+  <text class="label" x="340" y="226" font-size="16">persistent session</text>
+  <text class="small" x="340" y="250">keyed host:port</text>
+  <text class="small" x="340" y="268">prompt + console ring</text>
+
+  <line class="line" x1="580" y1="220" x2="612" y2="220" marker-end="url(#arrow)"/>
+
+  <rect class="box-accent" x="620" y="170" width="250" height="110"/>
+  <text class="kicker" x="640" y="196">CALL</text>
+  <text class="label" x="640" y="226" font-size="16">execute_command</text>
+  <text class="small" x="640" y="250">one command or a list</text>
+  <text class="small" x="640" y="268">mode selects the path</text>
+
+  <line class="line" x1="870" y1="220" x2="902" y2="220" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="910" y="170" width="230" height="110"/>
+  <text class="kicker" x="930" y="196">RESULT</text>
+  <text class="label" x="930" y="226" font-size="16">raw + footer</text>
+  <text class="small" x="930" y="250">output, then one status line</text>
+  <text class="small" x="930" y="268">now: &lt;prompt&gt;</text>
+
+  <line class="line-soft" x1="745" y1="270" x2="745" y2="300"/>
+  <line class="line-soft" x1="185" y1="300" x2="1010" y2="300"/>
+  <line class="line-soft" x1="185" y1="300" x2="185" y2="332" marker-end="url(#arrow)"/>
+  <line class="line-soft" x1="455" y1="300" x2="455" y2="332" marker-end="url(#arrow)"/>
+  <line class="line-soft" x1="730" y1="300" x2="730" y2="332" marker-end="url(#arrow)"/>
+  <line class="line-soft" x1="1010" y1="300" x2="1010" y2="332" marker-end="url(#arrow)"/>
+  <rect class="bg" x="700" y="289" width="90" height="22"/>
+  <text class="small" x="708" y="305">choose a mode</text>
+
+  <rect class="box" x="60" y="340" width="250" height="128"/>
+  <text class="kicker" x="80" y="366">DEFAULT</text>
+  <text class="label" x="80" y="396" font-size="17">auto</text>
+  <text class="small" x="80" y="420">stays at current privilege</text>
+  <text class="small" x="80" y="440">never downgrades</text>
+  <text class="small" x="80" y="456">BDCOM stays in enable</text>
+
+  <rect class="box" x="330" y="340" width="250" height="128"/>
+  <text class="kicker" x="350" y="366">FORCED LEVEL</text>
+  <text class="label" x="350" y="396" font-size="17">user / enable</text>
+  <text class="small" x="350" y="420">set the privilege level</text>
+  <text class="small" x="350" y="440">enable only when needed</text>
+  <text class="small" x="350" y="456">login prompts handled</text>
+
+  <rect class="box-accent" x="600" y="340" width="260" height="128"/>
+  <text class="kicker" x="620" y="366">ATOMIC BLOCK</text>
+  <text class="label" x="620" y="396" font-size="17">config</text>
+  <text class="small" x="620" y="420">enter / exit config mode</text>
+  <text class="small" x="620" y="440">track sub-mode prompts</text>
+  <text class="small" x="620" y="456">report the exact failing line</text>
+
+  <rect class="box" x="880" y="340" width="260" height="128"/>
+  <text class="kicker" x="900" y="366">BYPASS</text>
+  <text class="label" x="900" y="396" font-size="17">raw</text>
+  <text class="small" x="900" y="420">drive the channel directly</text>
+  <text class="small" x="900" y="440">no prompt detection</text>
+  <text class="small" x="900" y="456">bootloader monitor#</text>
+
+  <rect class="box" x="60" y="500" width="560" height="176"/>
+  <text class="kicker" x="84" y="528">PROMPT &#8594; MODE LABEL</text>
+  <text class="mono" x="84" y="558">Switch&gt;</text>
+  <text class="small" x="390" y="558">user</text>
+  <text class="mono" x="84" y="584">Switch#</text>
+  <text class="small" x="390" y="584">enable</text>
+  <text class="mono" x="84" y="610">Switch_config#</text>
+  <text class="small" x="390" y="610">config</text>
+  <text class="mono" x="84" y="636">Switch_config_g0/1#</text>
+  <text class="small" x="390" y="636">config: interface g0/1</text>
+  <text class="mono" x="84" y="662">monitor#</text>
+  <text class="small" x="390" y="662">monitor (BootROM)</text>
+
+  <rect class="box" x="650" y="500" width="490" height="176"/>
+  <text class="kicker" x="674" y="528">FAILURE IS A STATE, NOT A GUESS</text>
+  <text class="mono" x="674" y="556">device error</text>
+  <text class="small" x="800" y="556">rejected; hint: adds the BDCOM fix</text>
+  <text class="mono" x="674" y="580">SESSION_TERMINATED</text>
+  <text class="small" x="674" y="602">dropped to login &#8212; reconnect, don't retry into a dead prompt</text>
+  <text class="mono" x="674" y="626">FAILED</text>
+  <text class="small" x="746" y="626">transport exception, not a CLI rejection</text>
+  <text class="mono" x="674" y="650">now:</text>
+  <text class="small" x="746" y="650">parsed prompt + mode the next call starts from</text>
+
+  <text class="small" x="60" y="704">Mode labels are parsed from the prompt suffix, so the hostname is arbitrary. config treats the list as one block; raw is for prompts netmiko does not recognise.</text>
+</svg>
