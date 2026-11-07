@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">TFTP_VLAN frame layout</title>
+  <desc id="desc">An 802.1Q-tagged Ethernet frame carrying IPv4, UDP and TFTP, captured through pcap and validated layer by layer.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#201e1d"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#ec3013"/>
+    </marker>
+    <style>
+      .bg { fill: #f3f2f2; }
+      .ink { fill: #201e1d; }
+      .muted { fill: #605d5d; }
+      .accent { fill: #ec3013; }
+      .frame { fill: #eae9e9; stroke: #201e1d; stroke-width: 2; }
+      .frame-accent { fill: #fff2ef; stroke: #201e1d; stroke-width: 2; }
+      .box { fill: none; stroke: #201e1d; stroke-width: 2; }
+      .box-accent { fill: #fff2ef; stroke: #ec3013; stroke-width: 2; }
+      .line { stroke: #201e1d; stroke-width: 2; fill: none; }
+      .line-accent { stroke: #ec3013; stroke-width: 2.5; fill: none; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #201e1d; letter-spacing: -1px; }
+      .kicker { font-family: Arial, Helvetica, sans-serif; font-size: 12px; fill: #ae1800; letter-spacing: 2px; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 17px; fill: #201e1d; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #605d5d; }
+      .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #201e1d; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+  <text class="kicker" x="60" y="58">CASE 03 — FRAME LAYOUT</text>
+  <text class="title" x="60" y="98">One frame, every header hand-built</text>
+  <text class="small" x="60" y="126">The pcap capture point sits below the hand-written parsers.</text>
+
+  <text class="small" x="60" y="190">pcap delivers this frame</text>
+  <line class="line" x1="60" y1="214" x2="1140" y2="214"/>
+  <line class="line" x1="60" y1="214" x2="60" y2="240"/>
+  <line class="line" x1="1140" y1="214" x2="1140" y2="240"/>
+
+  <rect class="frame" x="60" y="260" width="190" height="86"/>
+  <text class="label" x="78" y="296" font-size="15">Ethernet II</text>
+  <text class="mono" x="78" y="322" font-size="12">14 B</text>
+
+  <rect class="frame-accent" x="250" y="260" width="110" height="86"/>
+  <text class="label" x="266" y="296" font-size="15">802.1Q</text>
+  <text class="mono" x="266" y="322" font-size="12">4 B</text>
+
+  <rect class="frame" x="360" y="260" width="270" height="86"/>
+  <text class="label" x="378" y="296" font-size="15">IPv4</text>
+  <text class="mono" x="378" y="322" font-size="12">20 B min + options</text>
+
+  <rect class="frame" x="630" y="260" width="150" height="86"/>
+  <text class="label" x="648" y="296" font-size="15">UDP</text>
+  <text class="mono" x="648" y="322" font-size="12">8 B</text>
+
+  <rect class="frame" x="780" y="260" width="150" height="86"/>
+  <text class="label" x="798" y="296" font-size="15">TFTP</text>
+  <text class="mono" x="798" y="322" font-size="12">opcode 2 B</text>
+
+  <rect class="frame" x="930" y="260" width="210" height="86"/>
+  <text class="label" x="948" y="296" font-size="15">TFTP payload</text>
+  <text class="mono" x="948" y="322" font-size="12">data / ACK / options</text>
+
+  <line class="line" x1="200" y1="346" x2="200" y2="384" marker-end="url(#arrow)"/>
+  <line class="line" x1="300" y1="346" x2="300" y2="384" marker-end="url(#arrow)"/>
+  <line class="line" x1="480" y1="346" x2="480" y2="384" marker-end="url(#arrow)"/>
+  <line class="line" x1="700" y1="346" x2="700" y2="384" marker-end="url(#arrow)"/>
+  <line class="line" x1="840" y1="346" x2="840" y2="384" marker-end="url(#arrow)"/>
+  <line class="line" x1="1010" y1="346" x2="1010" y2="384" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect class="box" x="60" y="392" width="250" height="86"/>
+    <text class="small" x="78" y="422">destination MAC, source MAC,</text>
+    <text class="small" x="78" y="444">EtherType</text>
+  </g>
+  <g>
+    <rect class="box-accent" x="330" y="392" width="250" height="86"/>
+    <text class="small" x="348" y="422">VLAN tag inserted or</text>
+    <text class="small" x="348" y="444">stripped by the server</text>
+  </g>
+  <g>
+    <rect class="box" x="600" y="392" width="250" height="86"/>
+    <text class="small" x="618" y="422">header validated byte-by-byte;</text>
+    <text class="small" x="618" y="444">fragmented on transmit</text>
+  </g>
+  <g>
+    <rect class="box" x="870" y="392" width="270" height="86"/>
+    <text class="small" x="888" y="422">checksum over the IPv4</text>
+    <text class="small" x="888" y="444">pseudo-header</text>
+  </g>
+
+  <rect class="box" x="60" y="520" width="1080" height="90"/>
+  <text class="kicker" x="84" y="550">OPTIONS ON THE WIRE</text>
+  <text class="label" x="84" y="580" font-size="16">RFC 2348 blksize · RFC 2349 timeout / tsize · RFC 7440 windowsize</text>
+
+  <line class="line" x1="60" y1="650" x2="1140" y2="650"/>
+  <text class="small" x="60" y="682">Malformed frames are dropped at the earliest layer that can prove them wrong; the capture is the only OS-provided component.</text>
+</svg>

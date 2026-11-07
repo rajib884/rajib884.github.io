@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Voltage protector architecture</title>
+  <desc id="desc">A 220 V / 50 Hz Proteus grid feeds voltage and current sensor front ends. The STM32F103C8 samples both channels with ADC1 scan mode and circular DMA, computes RMS over a 20 ms window, and runs an inverse-time protection state machine. PA1 drives the load relay; USART1 provides configuration and test commands; settings live in the last flash page.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#201e1d"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#ec3013"/>
+    </marker>
+    <style>
+      .bg { fill: #f3f2f2; }
+      .ink { fill: #201e1d; }
+      .muted { fill: #605d5d; }
+      .accent { fill: #ec3013; }
+      .box { fill: none; stroke: #201e1d; stroke-width: 2; }
+      .box-accent { fill: #fff2ef; stroke: #ec3013; stroke-width: 2; }
+      .box-soft { fill: #eae9e9; stroke: #9b9797; stroke-width: 1.5; stroke-dasharray: 5 4; }
+      .line { stroke: #201e1d; stroke-width: 2; fill: none; }
+      .line-accent { stroke: #ec3013; stroke-width: 2.5; fill: none; }
+      .line-soft { stroke: #9b9797; stroke-width: 1.5; fill: none; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #201e1d; letter-spacing: -1px; }
+      .kicker { font-family: Arial, Helvetica, sans-serif; font-size: 12px; fill: #ae1800; letter-spacing: 2px; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #201e1d; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #605d5d; }
+      .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #201e1d; }
+      .white { fill: #f3f2f2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+  <text class="kicker" x="60" y="58">CASE 04 &#183; VOLTAGE PROTECTOR</text>
+  <text class="title" x="60" y="98">Measure, decide, disconnect</text>
+  <text class="small" x="60" y="126">2026 &#183; STM32F103C8 / ATmega328P &#183; C &#183; Proteus simulation</text>
+
+  <rect class="box" x="60" y="190" width="220" height="80"/>
+  <text class="label" x="80" y="222">220 V / 50 Hz</text>
+  <text class="small" x="80" y="246">Proteus grid + lamp load</text>
+
+  <rect class="box" x="60" y="320" width="220" height="90"/>
+  <text class="label" x="80" y="350">Voltage sense</text>
+  <text class="small" x="80" y="374">transformer + MCP6001</text>
+  <text class="mono" x="80" y="396">PA2 &#183; 1.65 V bias</text>
+
+  <rect class="box" x="60" y="450" width="220" height="90"/>
+  <text class="label" x="80" y="480">Current sense</text>
+  <text class="small" x="80" y="504">ACS712-20A</text>
+  <text class="mono" x="80" y="526">PA3 &#183; 10k/20k divider</text>
+
+  <path class="line" d="M170 270 V320" marker-end="url(#arrow)"/>
+  <path class="line" d="M60 230 H30 V495 H60" marker-end="url(#arrow)"/>
+  <text class="small" x="16" y="368" transform="rotate(-90 16 368)">protected line</text>
+
+  <rect class="box-accent" x="370" y="230" width="330" height="330"/>
+  <text class="kicker" x="394" y="262">STM32F103C8</text>
+  <text class="label" x="394" y="294" font-weight="700">sense, decide, trip</text>
+  <text class="small" x="394" y="322">ADC1 scan + circular DMA</text>
+  <text class="small" x="394" y="346">PA2 voltage &#183; PA3 current</text>
+  <text class="small" x="394" y="370">40 pairs &#8776; 20 ms window</text>
+  <text class="small" x="394" y="394">integer sums in the ISR</text>
+  <text class="small" x="394" y="418">RMS, DC bias removed</text>
+  <text class="mono" x="394" y="446" fill="#ec3013">WAIT -&gt; NORMAL -&gt; trip</text>
+  <text class="small" x="394" y="474">inverse-time OVP / UVP / I&#178;t</text>
+  <text class="small" x="394" y="498">one-window rail / short trip</text>
+  <text class="small" x="394" y="522">PA1 relay control</text>
+  <text class="small" x="394" y="546">low at reset = relay open</text>
+
+  <line class="line" x1="280" y1="365" x2="362" y2="365" marker-end="url(#arrow)"/>
+  <text class="small" x="292" y="350">PA2</text>
+  <line class="line" x1="280" y1="495" x2="362" y2="495" marker-end="url(#arrow)"/>
+  <text class="small" x="292" y="480">PA3</text>
+
+  <rect class="box" x="770" y="230" width="190" height="100"/>
+  <text class="kicker" x="792" y="260">RELAY</text>
+  <text class="label" x="792" y="292">PA1 driver</text>
+  <text class="small" x="792" y="316">high = load on</text>
+
+  <rect class="box" x="1000" y="230" width="140" height="100"/>
+  <text class="kicker" x="1020" y="260">LOAD</text>
+  <text class="label" x="1020" y="292">220 V lamp</text>
+  <text class="small" x="1020" y="316">Proteus</text>
+
+  <line class="line-accent" x1="700" y1="280" x2="762" y2="280" marker-end="url(#arrow-accent)"/>
+  <text class="small" x="712" y="266">PA1</text>
+  <line class="line" x1="960" y1="280" x2="992" y2="280" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="770" y="370" width="370" height="160"/>
+  <text class="kicker" x="792" y="400">SERVICE PATH</text>
+  <text class="label" x="792" y="432">USART1 &#183; 115200</text>
+  <text class="small" x="792" y="456">STATUS / GET / SET / CAL</text>
+  <text class="small" x="792" y="480">SAVE / RESET / RELAY</text>
+  <text class="small" x="792" y="504">last flash page: magic + checksum</text>
+  <text class="small" x="792" y="522" fill="#ec3013">OV/UV reconnect &#183; OC/short latch</text>
+
+  <line class="line" x1="700" y1="430" x2="762" y2="430" marker-end="url(#arrow)"/>
+  <text class="small" x="712" y="416">UART</text>
+
+  <rect class="box-soft" x="60" y="580" width="1080" height="80"/>
+  <text class="kicker" x="84" y="610">ATmega328P PORT</text>
+  <text class="label" x="84" y="638">Timer1-triggered ADC at 2 kHz</text>
+  <text class="small" x="420" y="638">20 pairs = 20 ms &#183; EEPROM settings &#183; watchdog &#183; same protection state machine</text>
+
+  <line class="line-soft" x1="60" y1="684" x2="1140" y2="684"/>
+  <text class="small" x="60" y="708">Proteus simulation only &#8212; no hardware prototype. Protection evaluates 20 ms windows; a large fault trips in one window.</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">IoT weather station system architecture</title>
+  <desc id="desc">An AVR slave polls three IR sensors and counts 45-degree steps, then sends a 16-bit total over I2C to an ESP32 master, which drives a display and SD card over SPI and publishes readings through Wi-Fi to a Django dashboard.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#201e1d"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#ec3013"/>
+    </marker>
+    <style>
+      .bg { fill: #f3f2f2; }
+      .ink { fill: #201e1d; }
+      .muted { fill: #605d5d; }
+      .accent { fill: #ec3013; }
+      .box { fill: none; stroke: #201e1d; stroke-width: 2; }
+      .box-accent { fill: #fff2ef; stroke: #ec3013; stroke-width: 2; }
+      .box-dark { fill: #201e1d; stroke: #201e1d; }
+      .line { stroke: #201e1d; stroke-width: 2; fill: none; }
+      .line-soft { stroke: #9b9797; stroke-width: 1.5; fill: none; }
+      .line-accent { stroke: #ec3013; stroke-width: 3; fill: none; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #201e1d; letter-spacing: -1px; }
+      .kicker { font-family: Arial, Helvetica, sans-serif; font-size: 12px; fill: #ae1800; letter-spacing: 2px; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #201e1d; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #605d5d; }
+      .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #201e1d; }
+      .white { fill: #f3f2f2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+  <text class="kicker" x="60" y="58">CASE 02 — IOT WEATHER STATION</text>
+  <text class="title" x="60" y="98">Two microcontrollers, one data path</text>
+  <text class="small" x="60" y="126">2022 · ESP32 / ATmega328P · MicroPython + Arduino C++ · breadboard to fabricated PCB</text>
+
+  <rect class="box" x="40" y="190" width="190" height="90"/>
+  <text class="label" x="60" y="226">Anemometer</text>
+  <text class="small" x="60" y="250">45&#176; steps</text>
+
+  <rect class="box-accent" x="285" y="160" width="245" height="190"/>
+  <text class="kicker" x="307" y="192">AVR SLAVE</text>
+  <text class="label" x="307" y="226" font-weight="700">ATmega328P</text>
+  <text class="small" x="307" y="258">polls 3 IR sensors</text>
+  <text class="small" x="307" y="280">counts 45&#176; steps</text>
+  <text class="small" x="307" y="302">packs 16-bit total</text>
+  <text class="mono" x="307" y="328">I2C payload</text>
+
+  <rect class="box-accent" x="610" y="130" width="270" height="280"/>
+  <text class="kicker" x="634" y="162">ESP32 MASTER</text>
+  <text class="label" x="634" y="196" font-weight="700">sensor + UI node</text>
+  <text class="small" x="634" y="230">BMP180 · DHT11</text>
+  <text class="small" x="634" y="252">TFT display over SPI</text>
+  <text class="small" x="634" y="274">SD card over SPI</text>
+  <text class="small" x="634" y="304">display guarded by</text>
+  <text class="small" x="634" y="326">a mutex between threads</text>
+  <text class="mono" x="634" y="366">Wi-Fi publish</text>
+
+  <rect class="box" x="960" y="160" width="190" height="190"/>
+  <text class="kicker" x="982" y="192">BACK END</text>
+  <text class="label" x="982" y="226">Django</text>
+  <text class="small" x="982" y="252">REST API</text>
+  <text class="small" x="982" y="274">WebSockets</text>
+  <text class="small" x="982" y="308">browser dashboard</text>
+
+  <line class="line" x1="230" y1="235" x2="277" y2="235" marker-end="url(#arrow)"/>
+  <text class="small" x="232" y="220">steps</text>
+  <line class="line-accent" x1="530" y1="235" x2="602" y2="235" marker-end="url(#arrow-accent)"/>
+  <text class="small" x="536" y="220">I2C</text>
+  <line class="line-accent" x1="880" y1="235" x2="952" y2="235" marker-end="url(#arrow-accent)"/>
+  <text class="small" x="894" y="220">Wi-Fi</text>
+
+
+  <line class="line-soft" x1="60" y1="520" x2="1140" y2="520"/>
+  <text class="kicker" x="60" y="556">THE BUILD</text>
+  <text class="label" x="60" y="590">Breadboard prototype</text>
+  <line class="line" x1="300" y1="580" x2="410" y2="580" marker-end="url(#arrow)"/>
+  <text class="label" x="440" y="590">fabricated PCB</text>
+  <text class="small" x="60" y="624">The AVR counts the wind; the ESP32 owns the display, storage and network.</text>
+  <text class="small" x="60" y="682">Conceptual architecture — not a pinout. The ESP32 half is MicroPython; the AVR half is Arduino C++.</text>
+</svg>

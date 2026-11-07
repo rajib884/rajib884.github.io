@@ -1,0 +1,518 @@
+/* The portfolio page, built on the Modernist tokens in modernist.css.
+ *
+ * The design arrived as one HTML file with every rule in a `style` attribute,
+ * which is how a design tool writes and not how a page should be maintained.
+ * Everything is hoisted here, in the design's own order, keeping its numbers
+ * exactly. Two things could not come across as they were:
+ *
+ *   - `style-hover="..."`, a design-tool attribute with no meaning in a
+ *     browser, becomes a real `:hover` rule.
+ *   - Several elements carried two `style` attributes; a browser keeps the
+ *     first and silently drops the second, so those rules were being lost even
+ *     in the preview. They are merged here.
+ *
+ * The design declared a `blink` keyframe and never used it; it is not carried.
+ *
+ * The design also has no breakpoints - it was drawn at desktop width, where its
+ * two-column grids work and below which they do not. The stacking rules at the
+ * bottom are additions, not translations.
+ */
+
+/* ---------------------------------------------------------------- shell */
+
+.pf { background: var(--color-bg); color: var(--color-text); min-height: 100vh; }
+.pf-wrap { max-width: 1180px; margin: 0 auto; padding-inline: 28px; }
+
+/* ------------------------------------------------------------------ nav */
+
+.pf-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  background: var(--color-bg);
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1);
+}
+.pf-nav.is-hidden { transform: translateY(-110%); }
+.pf-nav .nav { max-width: 1180px; margin: 0 auto; padding: 14px 28px; border-bottom: 0; }
+.pf-nav .nav-brand { font-size: 17px; letter-spacing: -0.02em; }
+.pf-nav .nav a { text-decoration: none; }
+.pf-nav .nav a:hover { color: var(--color-accent); }
+.pf-nav .btn-primary { padding: 7px 14px; }
+.pf-nav .btn-primary:hover { color: var(--color-bg); }
+
+.pf-progress-track { height: 2px; background: var(--color-divider); position: relative; }
+.pf-progress {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 0;
+  background: var(--color-accent);
+}
+
+/* --------------------------------------------------------------- header */
+
+.pf-header { padding-top: 150px; }
+.pf-hero {
+  display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 56px; align-items: start;
+}
+.pf-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-accent-700);
+}
+.pf-eyebrow::before {
+  content: ""; width: 34px; height: 2px; background: var(--color-accent); display: block; flex: none;
+}
+.pf-title {
+  font-size: clamp(48px, 6.4vw, 86px); line-height: 0.95;
+  letter-spacing: -0.035em; margin: 22px 0 0;
+}
+.pf-rule {
+  height: 2px; background: var(--color-accent); margin: 30px 0 26px; transform-origin: left;
+}
+.pf-lede { font-size: 19px; line-height: 1.55; max-width: 62ch; margin: 0 0 18px; }
+.pf-lede:last-of-type { margin-bottom: 30px; }
+.pf-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.pf-actions .btn { padding: 12px 20px; font-size: 15px; }
+
+/* the spec sheet */
+.pf-aside { border-left: 2px solid var(--color-divider); padding-left: 26px; }
+.pf-portrait { width: 100%; height: 340px; margin-bottom: 22px; }
+.pf-portrait { mix-blend-mode: multiply; }
+.pf-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.pf-aside-label {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-neutral-700); margin-bottom: 14px;
+}
+.pf-stat {
+  display: flex; align-items: baseline; gap: 10px;
+  border-bottom: 1px solid var(--color-divider); padding: 12px 0;
+}
+.pf-stat:last-child { border-bottom: 0; }
+.pf-stat-value {
+  font-family: var(--font-heading); font-weight: 800; font-size: 40px;
+  line-height: 1; color: var(--color-accent);
+  /* Reserve the finished width so the count-up does not shove the label about
+     on every frame - a number growing from 0 to 20,000 is four reflows a
+     second otherwise. */
+  font-variant-numeric: tabular-nums;
+}
+.pf-stat-label { font-size: 13px; line-height: 1.3; }
+
+/* -------------------------------------------------------------- marquee */
+
+.pf-marquee {
+  margin-top: 96px; background: var(--color-accent); color: var(--color-bg);
+  overflow: hidden; padding: 16px 0;
+}
+.pf-marquee-track {
+  display: flex; width: max-content;
+  animation: pf-marquee 38s linear infinite;
+}
+.pf-marquee-run {
+  display: flex; gap: 34px; padding-right: 34px;
+  font-family: var(--font-heading); font-weight: 800; font-size: 20px;
+  letter-spacing: -0.01em; text-transform: uppercase;
+}
+@keyframes pf-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ------------------------------------------------------------- sections */
+
+.pf-section { padding-top: 90px; }
+.pf-section-head {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
+  gap: 40px; align-items: end;
+  border-bottom: 2px solid var(--color-divider); padding-bottom: 20px;
+}
+.pf-kicker {
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-accent-700);
+}
+.pf-section-head h2 { font-size: clamp(30px, 3.4vw, 46px); letter-spacing: -0.03em; margin: 0; }
+
+/* -------------------------------------------------------- experience */
+
+.pf-split {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 40px;
+}
+.pf-role { padding: 34px 0 10px; }
+.pf-role h3 { margin: 0 0 4px; font-size: 27px; letter-spacing: -0.02em; }
+.pf-org { font-size: 15px; color: var(--color-accent-700); margin-bottom: 12px; }
+.pf-meta { font-size: 13px; color: var(--color-neutral-700); }
+.pf-note { max-width: 66ch; margin: 0; }
+
+.pf-phase { padding: 30px 0; border-top: 1px solid var(--color-divider); }
+.pf-phase:last-of-type { padding-bottom: 40px; }
+.pf-phase-mark { display: flex; align-items: center; gap: 10px; }
+.pf-phase-mark::before {
+  content: ""; width: 10px; height: 10px; background: var(--color-accent);
+  display: block; flex: none;
+}
+.pf-phase-mark span { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+.pf-phase-dates { font-size: 13px; color: var(--color-neutral-700); margin: 6px 0 0 20px; }
+.pf-phase-title {
+  font-family: var(--font-heading); font-weight: 800; font-size: 19px;
+  line-height: 1.2; margin: 10px 0 0 20px;
+}
+.pf-bullets {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.pf-bullets li { padding-left: 22px; border-left: 2px solid var(--color-accent); max-width: 70ch; }
+
+.pf-quote {
+  border-top: 2px solid var(--color-divider); border-bottom: 2px solid var(--color-divider);
+  padding: 34px 0;
+}
+.pf-quote blockquote {
+  margin: 0; font-family: var(--font-heading); font-weight: 800;
+  font-size: clamp(22px, 2.6vw, 34px); line-height: 1.18;
+  letter-spacing: -0.025em; max-width: 24ch;
+}
+.pf-quote cite {
+  display: block; font-family: var(--font-body); font-weight: 400; font-style: normal;
+  font-size: 14px; letter-spacing: 0; margin-top: 14px; color: var(--color-neutral-700);
+}
+
+/* -------------------------------------------------------------- figures */
+
+.pf-figure { overflow: hidden; }
+.pf-figure img { width: 100%; height: 100%; object-fit: cover; }
+.pf-figure-band { margin: 90px 0 0; height: 460px; }
+.pf-figure-band-sm { margin: 56px 0 0; height: 380px; }
+.pf-figure-band-xs { margin: 26px 0 0; height: 340px; }
+/* Taller than the frame, so there is something for the parallax to move
+   through without exposing an edge. */
+.pf-figure-band img, .pf-figure-band-sm img, .pf-figure-band-xs img { height: 132%; }
+.pf-award-figure { max-width: 760px; margin: 48px 0 0; }
+.pf-award-figure img { display: block; height: auto; }
+.pf-award-caption { max-width: 760px; }
+.pf-figure-caption { font-size: 12px; color: var(--color-neutral-700); padding-top: 14px; }
+.pf-figure-caption .pf-credit { margin-left: 6px; }
+.pf-credit { font-size: 11px; color: var(--color-neutral-600); }
+.pf-credit a { color: inherit; }
+
+/* ----------------------------------------------------------- case studies */
+
+.pf-case-intro {
+  max-width: 68ch; margin: 24px 0 0;
+  font-size: 17px; line-height: 1.6; color: var(--color-neutral-700);
+}
+.pf-case { padding: 46px 0 42px; border-bottom: 2px solid var(--color-divider); scroll-margin-top: 100px; }
+.pf-case-head {
+  display: grid; grid-template-columns: 62px minmax(0, 1fr) auto;
+  gap: 22px; align-items: end;
+}
+.pf-case-index {
+  font-family: var(--font-heading); font-weight: 800; font-size: 44px;
+  line-height: .85; letter-spacing: -.04em; color: var(--color-accent);
+}
+.pf-case-meta {
+  font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--color-neutral-700);
+}
+.pf-case h3 {
+  margin: 6px 0 0; font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1.05; letter-spacing: -.03em;
+}
+.pf-case-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  justify-content: flex-end; padding-bottom: 4px;
+}
+.pf-case-body {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 36px; align-items: start; margin-top: 28px;
+}
+.pf-case-copy p { margin: 0 0 15px; max-width: 62ch; }
+.pf-case-lede { font-size: 19px; line-height: 1.55; }
+.pf-case-points {
+  list-style: none; margin: 20px 0 0; padding: 0;
+  display: flex; flex-direction: column; gap: 9px;
+}
+.pf-case-points li {
+  padding-left: 16px; border-left: 2px solid var(--color-accent);
+  font-size: 14px; line-height: 1.45;
+}
+.pf-case-result {
+  margin-top: 20px; font-size: 13px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--color-accent-700);
+}
+.pf-case-stack {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 18px; padding-top: 16px;
+  border-top: 1px solid var(--color-divider);
+}
+.pf-case-stack span {
+  padding: 4px 7px; border: 1px solid var(--color-divider);
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--color-neutral-700);
+}
+.pf-case-figure { margin: 0; }
+.pf-case-figure img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--color-divider); background: var(--color-bg);
+}
+.pf-case-figure figcaption {
+  padding-top: 10px; font-size: 12px; line-height: 1.45;
+  color: var(--color-neutral-700);
+}
+.pf-case-side { display: flex; flex-direction: column; gap: 22px; }
+.pf-case-aside { display: grid; gap: 14px; }
+.pf-case-aside-block {
+  padding-top: 12px; border-top: 1px solid var(--color-divider);
+}
+.pf-case-aside-kicker {
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--color-accent-700);
+}
+.pf-case-aside p {
+  margin: 6px 0 0; max-width: 60ch;
+  font-size: 12px; line-height: 1.45; color: var(--color-neutral-700);
+}
+.pf-case-side .pf-case-stack { margin-top: 0; }
+.pf-case-open {
+  display: inline-block; margin-left: 6px; white-space: nowrap;
+  color: var(--color-accent-700); text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.pf-case-open:hover { color: var(--color-accent); }
+.pf-case-gallery {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px; margin-top: 26px;
+}
+.pf-case-gallery-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pf-other-head {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: 10px 28px;
+  margin-top: 56px; padding-top: 4px;
+}
+.pf-other-head h3 { margin: 0; font-size: clamp(24px, 2.4vw, 32px); letter-spacing: -.03em; }
+.pf-other-head p { margin: 0; font-size: 14px; color: var(--color-neutral-700); }
+/* ------------------------------------------------------------- projects */
+
+.pf-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2px; margin: 34px 0 0;
+  /* The design drew the hairlines by showing a divider-coloured background
+     through a 2px gap. That works only while every cell is filled and opaque -
+     and these cells fade in, so on the way past this section the whole block
+     was a grey slab, and a row that did not fill left a grey rectangle the size
+     of a card behind. Each cell draws its own 1px edge instead: two neighbours
+     meet to make the same 2px line, and a cell that is empty or still
+     transparent contributes nothing. `overflow: hidden` clips the ring that
+     would otherwise appear around the outside, which the design does not
+     have. */
+  background: var(--color-bg); overflow: hidden;
+}
+.pf-grid > * { box-shadow: 0 0 0 1px var(--color-divider); }
+.pf-grid-other, .pf-grid-rover {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 24px;
+}
+.pf-card {
+  background: var(--color-bg); padding: 26px; gap: 10px;
+  transition: background .25s ease;
+}
+.pf-card:hover { background: var(--color-surface); }
+.pf-card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.pf-card h3 { font-size: 22px; margin: 0; letter-spacing: -0.02em; }
+.pf-card-sub { font-size: 14px; color: var(--color-neutral-700); }
+.pf-card .card-body { font-size: 14px; opacity: 1; }
+.pf-card-figure { margin: 0; aspect-ratio: 4 / 3; position: relative; }
+.pf-card-figure img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.pf-card-figure-credit {
+  position: absolute; left: 10px; bottom: 10px; z-index: 1;
+  padding: 4px 7px; font-size: 10px; line-height: 1.2;
+  color: var(--color-bg); background: color-mix(in srgb, var(--color-text) 78%, transparent);
+}
+.pf-card-figure-credit a { color: inherit; }
+.pf-card-links { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.pf-card-links a {
+  width: fit-content; font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--color-accent-700);
+  text-decoration: none; border-bottom: 1px solid currentColor;
+}
+.pf-card-links a:hover { color: var(--color-accent); }
+.pf-case-copy .pf-card-links { margin-top: 14px; }
+
+.pf-cta {
+  background: var(--color-accent); color: var(--color-bg); padding: 26px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  text-decoration: none; min-height: 200px; transition: background .25s ease;
+}
+.pf-cta:hover { background: var(--color-accent-600); }
+.pf-cta-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.pf-cta-line {
+  font-family: var(--font-heading); font-weight: 800; font-size: 30px;
+  line-height: 1.05; letter-spacing: -0.03em;
+}
+.pf-cta-wide {
+  grid-column: 1 / -1;
+  flex-direction: row; align-items: center; gap: 24px;
+}
+
+/* --------------------------------------------------------------- skills */
+
+.pf-skill { padding: 26px 0; border-bottom: 1px solid var(--color-divider); }
+.pf-skill:last-of-type { border-bottom-width: 2px; }
+.pf-skill-label { font-family: var(--font-heading); font-weight: 800; font-size: 17px; }
+.pf-skill p { margin: 0; max-width: 70ch; }
+.pf-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pf-chips .tag { font-size: 13px; padding: 5px 12px; }
+
+/* ------------------------------------------------------------- research */
+
+.pf-pubs { list-style: none; margin: 0; padding: 0; }
+.pf-pub {
+  display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 20px;
+  padding: 26px 0; border-bottom: 1px solid var(--color-divider);
+}
+.pf-pub-index {
+  font-family: var(--font-heading); font-weight: 800; font-size: 24px; color: var(--color-accent);
+}
+.pf-pub span:last-child { max-width: 78ch; }
+
+/* --------------------------------------------- education and engagements */
+
+.pf-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 56px; }
+.pf-column-head {
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-accent-700);
+  border-bottom: 2px solid var(--color-divider); padding-bottom: 20px;
+}
+.pf-edu { padding: 22px 0; border-bottom: 1px solid var(--color-divider); }
+.pf-edu:last-child { border-bottom-width: 2px; }
+.pf-edu h3 { margin: 0 0 6px; font-size: 21px; letter-spacing: -0.02em; }
+.pf-edu-meta { font-size: 14px; color: var(--color-neutral-700); }
+.pf-edu-result { font-size: 14px; margin-top: 4px; }
+.pf-engagement {
+  display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 16px;
+  padding: 18px 0; border-bottom: 1px solid var(--color-divider);
+}
+.pf-engagement:last-child { border-bottom-width: 2px; }
+.pf-engagement-year { font-family: var(--font-heading); font-weight: 800; color: var(--color-accent); }
+.pf-evidence-link {
+  display: block; width: fit-content; margin-top: 8px;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-accent-700); text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.pf-evidence-link:hover { color: var(--color-accent); }
+
+/* -------------------------------------------------------------- contact */
+
+.pf-contact { margin-top: 96px; background: var(--color-accent); color: var(--color-bg); }
+.pf-contact .pf-wrap { padding-block: 80px; }
+.pf-contact-kicker {
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 22px;
+}
+.pf-contact h2 {
+  font-size: clamp(38px, 6vw, 78px); line-height: 0.98; letter-spacing: -0.035em;
+  margin: 0 0 34px; max-width: 18ch;
+}
+.pf-contact-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 28px;
+  border-top: 2px solid rgb(243 242 242 / 0.5); padding-top: 26px;
+}
+.pf-contact-label {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  opacity: 0.75; margin-bottom: 6px;
+}
+.pf-contact-value {
+  color: var(--color-bg); font-family: var(--font-heading); font-weight: 800;
+  font-size: 18px; text-decoration: none; word-break: break-word;
+}
+.pf-contact-value:hover { text-decoration: underline; }
+
+.pf-footer {
+  padding: 26px 28px 60px; display: flex; flex-wrap: wrap; gap: 16px;
+  justify-content: space-between; font-size: 13px; color: var(--color-neutral-700);
+}
+
+/* --------------------------------------------------------------- motion */
+
+@keyframes pf-rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes pf-rule-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* The hero animates on load rather than on scroll - it is already in view, so
+   there is nothing to wait for. The delays stagger it in reading order. */
+.pf-anim { animation: pf-rise .8s both; }
+.pf-anim-1 { animation-delay: .05s; }
+.pf-anim-2 { animation-delay: .12s; }
+.pf-anim-3 { animation-delay: .3s; }
+.pf-anim-4 { animation-delay: .38s; }
+.pf-anim-5 { animation-delay: .46s; }
+.pf-anim-6 { animation-delay: .5s; }
+.pf-rule-anim { animation: pf-rule-in .9s .5s both cubic-bezier(.2, .75, .2, 1); }
+
+/* Set by the script, so anything below the fold starts hidden only when there
+   is something running to reveal it. Without JavaScript nothing is ever
+   hidden, which is the behaviour a page of text should degrade to. */
+.pf-reveal-armed [data-reveal] {
+  opacity: 0; transform: translateY(26px);
+  transition: opacity .7s cubic-bezier(.2, .7, .2, 1), transform .7s cubic-bezier(.2, .7, .2, 1);
+}
+.pf-reveal-armed [data-reveal].is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-marquee-track { animation: none; }
+  .pf-anim, .pf-rule-anim { animation: none; }
+  .pf-reveal-armed [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .pf-nav { transition: none; }
+}
+
+/* ----------------------------------------------------------- narrower */
+/*
+ * Additions, not translations: the design has no breakpoints. Its two-column
+ * grids are 1fr/2.1fr and 1.55fr/1fr, which stop being readable long before a
+ * phone - the right-hand column of the experience section would be about eleven
+ * characters wide at 390px.
+ */
+@media (max-width: 900px) {
+  .pf-hero, .pf-split, .pf-section-head { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .pf-header { padding-top: 120px; }
+  .pf-aside { border-left: 0; border-top: 2px solid var(--color-divider); padding: 26px 0 0; }
+  .pf-section-head { align-items: start; }
+  .pf-phase-dates, .pf-phase-title { margin-left: 0; }
+  .pf-figure-band { height: 300px; }
+  .pf-figure-band-sm, .pf-figure-band-xs { height: 260px; }
+  .pf-columns { gap: 40px; }
+  .pf-case-head { grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
+  .pf-case-index { font-size: 34px; }
+  .pf-case-tags { grid-column: 2; justify-content: flex-start; padding-bottom: 0; }
+  .pf-case-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .pf-case-aside { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 1019px) {
+  .pf-grid-other { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pf-cta-wide { grid-column: 1 / -1; flex-direction: column; align-items: stretch; gap: 0; }
+}
+
+@media (max-width: 700px) {
+  .pf-case-gallery-two { grid-template-columns: minmax(0, 1fr); }
+  .pf-grid-rover, .pf-grid-other { grid-template-columns: minmax(0, 1fr); }
+  .pf-case-aside { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .pf-wrap { padding-inline: 20px; }
+  .pf-nav .nav { padding: 10px 20px; gap: 12px; }
+  /* The section links go; the brand and the one button that matters stay. A
+     five-item nav at this width wraps into two lines of its own height. */
+  .pf-nav .nav a:not(.btn) { display: none; }
+  .pf-marquee { margin-top: 60px; }
+  .pf-section { padding-top: 60px; }
+  .pf-grid { grid-template-columns: minmax(0, 1fr); }
+  .pf-contact .pf-wrap { padding-block: 56px; }
+  .pf-award-figure { margin-top: 32px; }
+  .pf-case { padding: 36px 0 34px; }
+  .pf-case-head { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .pf-case-index { font-size: 28px; }
+  .pf-case-tags { grid-column: auto; }
+  .pf-case-gallery { grid-template-columns: minmax(0, 1fr); }
+  .pf-other-head { margin-top: 42px; }
+  .pf-grid .pf-cta-wide { grid-column: auto; }
+}
+
+/* Research items sit in the same split as the skills rows, with a little more
+   air above them because they follow a numbered list rather than another row. */
+.pf-research-item { padding: 30px 0 0; }
+.pf-research-body { margin: 0; max-width: 70ch; }
+

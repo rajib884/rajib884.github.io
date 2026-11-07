@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Automatic railway gate control system block diagram</title>
+  <desc id="desc">Two ATtiny45 detector boards read IR pairs and 44E402 Hall sensors; an ATmega328P gate controller receives the events over HC-05, checks an HC-SR04 sonar interlock and drives a servo gate.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#201e1d"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#ec3013"/>
+    </marker>
+    <style>
+      .bg { fill: #f3f2f2; }
+      .ink { fill: #201e1d; }
+      .muted { fill: #605d5d; }
+      .accent { fill: #ec3013; }
+      .box { fill: none; stroke: #201e1d; stroke-width: 2; }
+      .box-accent { fill: #fff2ef; stroke: #ec3013; stroke-width: 2; }
+      .line { stroke: #201e1d; stroke-width: 2; fill: none; }
+      .line-soft { stroke: #9b9797; stroke-width: 1.5; fill: none; }
+      .line-accent { stroke: #ec3013; stroke-width: 3; fill: none; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; fill: #201e1d; letter-spacing: -1px; }
+      .kicker { font-family: Arial, Helvetica, sans-serif; font-size: 12px; fill: #ae1800; letter-spacing: 2px; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #201e1d; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 14px; fill: #605d5d; }
+      .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #201e1d; }
+      .white { fill: #f3f2f2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+  <text class="kicker" x="60" y="58">CASE 01 — AUTOMATIC RAILWAY GATE CONTROL</text>
+  <text class="title" x="60" y="98">Sense, decide, actuate</text>
+  <text class="small" x="60" y="126">2020 · Arduino C++ · ATmega328P / ATtiny45 · PCB design and fabrication</text>
+
+  <rect class="box" x="60" y="190" width="260" height="180"/>
+  <text class="kicker" x="84" y="222">SENSING</text>
+  <text class="label" x="84" y="258">Two IR pairs</text>
+  <text class="label" x="84" y="288">44E402 Hall sensor</text>
+  <text class="small" x="84" y="330">one detector board per approach</text>
+
+  <rect class="box-accent" x="390" y="170" width="300" height="220"/>
+  <text class="kicker" x="414" y="202">CONTROL</text>
+  <text class="label" x="414" y="240" font-size="22" font-weight="700">ATtiny45 detectors</text>
+  <text class="label" x="414" y="270" font-size="22" font-weight="700">ATmega328P gate</text>
+  <text class="small" x="414" y="308">IR timing, Hall check and</text>
+  <text class="small" x="414" y="328">wireless coordination</text>
+  <text class="mono" x="414" y="362">3 AVRs · 2 PCB designs</text>
+
+  <rect class="box" x="760" y="190" width="380" height="180"/>
+  <text class="kicker" x="784" y="222">ACTUATION</text>
+  <text class="label" x="784" y="258">Servo gate</text>
+  <text class="label" x="784" y="288">HC-SR04 sonar</text>
+  <text class="small" x="784" y="330">servo bar checked for obstructions</text>
+
+  <rect class="box" x="390" y="470" width="300" height="120"/>
+  <text class="kicker" x="414" y="502">WIRELESS LINK</text>
+  <text class="label" x="414" y="538">HC-05 modules</text>
+  <text class="small" x="414" y="566">detector boards to gate controller</text>
+
+  <rect class="box" x="760" y="470" width="380" height="120"/>
+  <text class="kicker" x="784" y="502">BUILT</text>
+  <text class="label" x="784" y="538">Two EAGLE PCB designs</text>
+  <text class="small" x="784" y="566">fabricated in-house</text>
+
+  <line class="line" x1="320" y1="280" x2="382" y2="280" marker-end="url(#arrow)"/>
+  <text class="small" x="290" y="266" font-size="11">sensor edges</text>
+  <line class="line-accent" x1="690" y1="280" x2="752" y2="280" marker-end="url(#arrow-accent)"/>
+  <text class="small" x="707" y="266">drive</text>
+  <line class="line" x1="540" y1="390" x2="540" y2="462" marker-end="url(#arrow)"/>
+  <text class="small" x="552" y="432">link</text>
+
+  <line class="line-soft" x1="60" y1="650" x2="1140" y2="650"/>
+  <text class="small" x="60" y="682">Conceptual block diagram — not a wiring schematic. Two detector boards talk to the gate controller over HC-05; the servo is driven locally.</text>
+</svg>
