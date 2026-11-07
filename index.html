@@ -869,15 +869,15 @@
             <span class="tag tag-outline">Robotics</span>
           </div>
           <h3>Mud Rover 1.0</h3>
-          <div class="pf-card-sub">Radio-controlled differential-drive rover &middot; 2nd runner-up, Robotronics 1.0</div>
+          <div class="pf-card-sub">Bluetooth-controlled differential-drive rover &middot; 2nd runner-up, Robotronics 1.0</div>
           <p class="card-body">
             Four motors driven by two motor drivers, one for each side, with
-            each side on its own PWM channel, commanded over a hardware UART
-            from an RC receiver. The PWM carrier was raised eight-fold by
-            rewriting the AVR timer prescaler bits directly rather than through
-            the framework, with left/right speed trim and input smoothing on
-            top.
+            each side on its own PWM channel, commanded over Bluetooth serial.
+            Two servo axes, with acceleration ramping and left/right speed trim.
           </p>
+          <div class="pf-card-links">
+            <a href="https://youtu.be/wD_oGHp1pxw" target="_blank" rel="noreferrer noopener">Bluetooth test drive</a>
+          </div>
         </article>
 
         <article class="card pf-card" data-reveal>
@@ -891,17 +891,17 @@
             <span class="tag tag-outline">Robotics</span>
           </div>
           <h3>Mud Rover 2.0</h3>
-          <div class="pf-card-sub">FlySky iBUS control and a servo claw</div>
+          <div class="pf-card-sub">FlySky iBUS control and speed trim</div>
           <p class="card-body">
             Four motors and four motor drivers, controlled through a FlySky
-            FS-i6/FS-iA6B receiver over iBUS, with the stick square mapped
-            to a circular envelope and sin/cos differential mixing. Receiver-loss
-            failsafe, an arming switch and LED fault codes; a servo claw on the
-            front.
+            FS-i6/FS-iA6B receiver over iBUS, with differential steering, a
+            max-speed limit and left/right speed trim. The PWM carrier was
+            raised eight-fold by rewriting the AVR timer prescaler bits
+            directly; receiver-loss stops both sides, and battery voltage is
+            read on A0.
           </p>
           <div class="pf-card-links">
             <a href="https://youtu.be/XKvlyCKd_WU" target="_blank" rel="noreferrer noopener">FlySky test drive</a>
-            <a href="https://youtu.be/wD_oGHp1pxw" target="_blank" rel="noreferrer noopener">Bluetooth test drive</a>
           </div>
         </article>
       </div>
@@ -933,7 +933,96 @@
           </div>
         </article>
 
-        <a class="pf-cta" href="https://github.com/rajib884" target="_blank" rel="noreferrer noopener" data-reveal>
+        <article class="card pf-card" data-reveal>
+          <div class="pf-card-top">
+            <span class="card-kicker">Arduino C++</span>
+            <span class="tag tag-outline">Robotics</span>
+          </div>
+          <h3>Line-following robot</h3>
+          <div class="pf-card-sub">8-IR line follower with EEPROM calibration</div>
+          <p class="card-body">
+            Eight reflective sensors with per-sensor calibration stored in
+            EEPROM, shape detection and a short path memory, derivative-weighted
+            steering, and Bluetooth serial tuning/telemetry with battery
+            monitoring.
+          </p>
+        </article>
+
+        <article class="card pf-card" data-reveal>
+          <div class="pf-card-top">
+            <span class="card-kicker">Arduino C++</span>
+            <span class="tag tag-outline">Power</span>
+          </div>
+          <h3>SCR phase controller</h3>
+          <div class="pf-card-sub">Zero-cross firing-angle control</div>
+          <p class="card-body">
+            Mains zero-cross detected on an external interrupt; a potentiometer
+            sets the firing delay and two gate outputs drive the SCR pair. 1 ms
+            gate pulse, 10 ms delay range.
+          </p>
+        </article>
+
+        <article class="card pf-card" data-reveal>
+          <div class="pf-card-top">
+            <span class="card-kicker">Python &mdash; MCP</span>
+            <span class="tag tag-outline">Tooling</span>
+          </div>
+          <h3>gbk-fs</h3>
+          <div class="pf-card-sub">Byte-faithful GBK/GB18030 filesystem MCP server</div>
+          <p class="card-body">
+            Gives an MCP client filesystem tools for a legacy GBK codebase:
+            decode only to locate an edit, splice the changed bytes into the
+            original file, and leave every other byte &mdash; Chinese comments,
+            EOLs, BOM and final newline &mdash; untouched. Sandboxed paths,
+            atomic writes, per-file locks, optimistic hashes, git-ref reads and
+            a 10-tool surface; an 87-test suite covers encoding, fidelity,
+            concurrency, sandboxing and corruption recovery.
+          </p>
+          <div class="pf-card-links">
+            <a href="https://github.com/rajib884/gbk-fs" target="_blank" rel="noreferrer noopener">Repository</a>
+          </div>
+        </article>
+
+        <article class="card pf-card" data-reveal>
+          <div class="pf-card-top">
+            <span class="card-kicker">JavaScript + C++</span>
+            <span class="tag tag-outline">Realtime</span>
+          </div>
+          <h3>Live Translator</h3>
+          <div class="pf-card-sub">Real-time bidirectional speech translation</div>
+          <p class="card-body">
+            Browser app streams microphone, tab or app audio to Gemini Live over
+            a WebSocket; an AudioWorklet resamples capture to 16 kHz PCM16 and
+            plays 24 kHz PCM16 back. Session resumption and proactive GoAway
+            reconnects keep a conversation alive. An optional C++17 Windows
+            companion adds WASAPI loopback capture and serves it to the page
+            over a local WebSocket.
+          </p>
+          <div class="pf-card-links">
+            <a href="https://github.com/rajib884/Translator" target="_blank" rel="noreferrer noopener">Repository</a>
+          </div>
+        </article>
+
+        <article class="card pf-card" data-reveal>
+          <div class="pf-card-top">
+            <span class="card-kicker">Python &mdash; MCP</span>
+            <span class="tag tag-outline">Tooling</span>
+          </div>
+          <h3>opencode-mcp</h3>
+          <div class="pf-card-sub">Guarded delegation to opencode free models</div>
+          <p class="card-body">
+            Small stdio MCP server that runs one mechanical task per call on
+            opencode&rsquo;s free models. Read-only by default via opencode&rsquo;s
+            plan agent; write mode is opt-in, directory-confined and refuses
+            system roots. Per-call timeouts tree-kill the worker, named sessions
+            survive turns, and every call reports files changed and tools used.
+          </p>
+          <div class="pf-card-links">
+            <a href="https://github.com/rajib884/opencode-mcp" target="_blank" rel="noreferrer noopener">Repository</a>
+          </div>
+        </article>
+
+        <a class="pf-cta pf-cta-wide" href="https://github.com/rajib884" target="_blank" rel="noreferrer noopener" data-reveal>
           <span class="pf-cta-label">Source</span>
           <span class="pf-cta-line">More code on<br>github.com/rajib884 &rarr;</span>
         </a>
