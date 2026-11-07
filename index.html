@@ -871,11 +871,12 @@
           <h3>Mud Rover 1.0</h3>
           <div class="pf-card-sub">Radio-controlled differential-drive rover &middot; 2nd runner-up, Robotronics 1.0</div>
           <p class="card-body">
-            Two motors, each direction on its own PWM channel, commanded over a
-            hardware UART from an RC receiver. The PWM carrier was raised
-            eight-fold by rewriting the AVR timer prescaler bits directly rather
-            than through the framework, with left/right speed trim and input
-            smoothing on top.
+            Four motors driven by two motor drivers, one for each side, with
+            each side on its own PWM channel, commanded over a hardware UART
+            from an RC receiver. The PWM carrier was raised eight-fold by
+            rewriting the AVR timer prescaler bits directly rather than through
+            the framework, with left/right speed trim and input smoothing on
+            top.
           </p>
         </article>
 
@@ -892,7 +893,8 @@
           <h3>Mud Rover 2.0</h3>
           <div class="pf-card-sub">FlySky iBUS control and a servo claw</div>
           <p class="card-body">
-            FlySky FS-i6/FS-iA6B receiver over iBUS, with the stick square mapped
+            Four motors and four motor drivers, controlled through a FlySky
+            FS-i6/FS-iA6B receiver over iBUS, with the stick square mapped
             to a circular envelope and sin/cos differential mixing. Receiver-loss
             failsafe, an arming switch and LED fault codes; a servo claw on the
             front.
