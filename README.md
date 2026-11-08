@@ -136,7 +136,7 @@ span both columns, as the device_mcp result-footer figure does.
 - `assets/img/ruet-robotronics-2019.jpg` — official RUET ETE Department photo
   of the Mud Rover team receiving the 2019 2nd runner-up award.
 - `assets/img/mud-rover-1-0-2019.jpg` — Mud Rover 1.0 at Robotronics 1.0.
-- `assets/img/mud-rover-2-0-2022.jpg` — Mud Rover 2.0 indoor test drive.
+- `assets/img/mud-rover-2-0-2022.jpg` — Mud Rover 2.0 outdoor test with FlySky transmitter.
 - `assets/img/techfest-cozmo-clench-2020.jpg` — certificate of participation,
   Cozmo Clench, Techfest IIT Bombay, 3–5 January 2020.
 - `assets/img/iccit-2023-presentation.jpg` — ICCIT 2023 presentation
